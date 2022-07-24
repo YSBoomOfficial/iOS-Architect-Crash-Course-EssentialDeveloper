@@ -4,17 +4,18 @@
 
 import Foundation
 
-struct ListViewModel {
+struct ItemViewModel {
 	let title: String
 	let subtitle: String
+	let select: () -> Void
 
-	init(_ item: Any, longDateStyle: Bool) {
+	init(_ item: Any, longDateStyle: Bool, selection: @escaping () -> Void) {
 		if let friend = item as? Friend {
-			self.init(friend: friend)
+			self.init(friend: friend, selection: selection)
 		} else if let card = item as? Card {
-			self.init(card: card)
+			self.init(card: card, selection: selection)
 		} else if let transfer = item as? Transfer {
-			self.init(transfer: transfer, longDateStyle: longDateStyle)
+			self.init(transfer: transfer, longDateStyle: longDateStyle, selection: selection)
 		} else {
 			fatalError("unknown item: \(item)")
 		}
@@ -23,18 +24,20 @@ struct ListViewModel {
 }
 
 // MARK: Custom inits for `Friend`, `Card` and `Transfer`
-extension ListViewModel {
-	init(friend: Friend) {
+extension ItemViewModel {
+	init(friend: Friend, selection: @escaping () -> Void) {
 		title = friend.name
 		subtitle = friend.phone
+		select = selection
 	}
 
-	init(card: Card) {
+	init(card: Card, selection: @escaping () -> Void) {
 		title = card.number
 		subtitle = card.holder
+		select = selection
 	}
 
-	init(transfer: Transfer, longDateStyle: Bool) {
+	init(transfer: Transfer, longDateStyle: Bool, selection: @escaping () -> Void) {
 		let numberFormatter = Formatters.number
 		numberFormatter.numberStyle = .currency
 		numberFormatter.currencyCode = transfer.currencyCode
@@ -53,6 +56,7 @@ extension ListViewModel {
 			dateFormatter.timeStyle = .short
 			subtitle = "Received from: \(transfer.sender) on \(dateFormatter.string(from: transfer.date))"
 		}
+		select = selection
 	}
 
 }

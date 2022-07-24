@@ -5,7 +5,7 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-	var items = [Any]()
+	var items = [ItemViewModel]()
 	
 	var retryCount = 0
 	var maxRetryCount = 0
@@ -92,53 +92,71 @@ class ListViewController: UITableViewController {
 	
 	private func handleAPIResult<T>(_ result: Result<[T], Error>) {
 		switch result {
-		case let .success(items):
-			if fromFriendsScreen && User.shared?.isPremium == true {
-				(UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).cache.save(items as! [Friend])
-			}
-			self.retryCount = 0
-			
-			var filteredItems = items as [Any]
-			if let transfers = items as? [Transfer] {
-				if fromSentTransfersScreen {
-					filteredItems = transfers.filter(\.isSender)
-				} else {
-					filteredItems = transfers.filter { !$0.isSender }
+			case let .success(items):
+				if fromFriendsScreen && User.shared?.isPremium == true {
+					(UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).cache.save(items as! [Friend])
 				}
-			}
-			
-			self.items = filteredItems
-			self.refreshControl?.endRefreshing()
-			self.tableView.reloadData()
-			
-		case let .failure(error):
-			if shouldRetry && retryCount < maxRetryCount {
-				retryCount += 1
-				
-				refresh()
-				return
-			}
-			
-			retryCount = 0
-			
-			if fromFriendsScreen && User.shared?.isPremium == true {
-				(UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).cache.loadFriends { [weak self] result in
-					DispatchQueue.mainAsyncIfNeeded {
-						switch result {
-						case let .success(items):
-							self?.items = items
-							self?.tableView.reloadData()
-							
-						case let .failure(error):
-								self?.show(error: error)
-						}
-						self?.refreshControl?.endRefreshing()
+				self.retryCount = 0
+
+				var filteredItems = items as [Any]
+				if let transfers = items as? [Transfer] {
+					if fromSentTransfersScreen {
+						filteredItems = transfers.filter(\.isSender)
+					} else {
+						filteredItems = transfers.filter { !$0.isSender }
 					}
 				}
-			} else {
-				show(error: error)
+
+				self.items = filteredItems.map { item in
+					ItemViewModel(item, longDateStyle: longDateStyle) { [weak self] in // Selection Closure
+						if let friend = item as? Friend {
+							self?.select(friend: friend)
+						} else if let card = item as? Card {
+							self?.select(card: card)
+						} else if let transfer = item as? Transfer {
+							self?.select(transfer: transfer)
+						} else {
+							fatalError("unknown item: \(item)")
+						}
+					}
+				}
+
 				self.refreshControl?.endRefreshing()
-			}
+				self.tableView.reloadData()
+
+			case let .failure(error):
+				if shouldRetry && retryCount < maxRetryCount {
+					retryCount += 1
+
+					refresh()
+					return
+				}
+
+				retryCount = 0
+
+				if fromFriendsScreen && User.shared?.isPremium == true {
+					(UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate).cache.loadFriends { [weak self] result in
+						DispatchQueue.mainAsyncIfNeeded {
+							switch result {
+								case let .success(items):
+									self?.items = items.map { item in
+										ItemViewModel(friend: item) { [weak self] in
+											self?.select(friend: item)
+										}
+									}
+
+									self?.tableView.reloadData()
+
+								case let .failure(error):
+									self?.show(error: error)
+							}
+							self?.refreshControl?.endRefreshing()
+						}
+					}
+				} else {
+					show(error: error)
+					self.refreshControl?.endRefreshing()
+				}
 		}
 	}
 }
@@ -166,7 +184,7 @@ extension ListViewController {
 
 // MARK: Configure UITableViewCell with ListViewModel
 extension UITableViewCell {
-	func configure(_ vm: ListViewModel) {
+	func configure(_ vm: ItemViewModel) {
 		textLabel?.text = vm.title
 		detailTextLabel?.text = vm.subtitle
 	}
@@ -206,23 +224,12 @@ extension ListViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let item = items[indexPath.row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "ItemCell")
-		let vm = ListViewModel(item, longDateStyle: longDateStyle )
-		cell.configure(vm)
+		cell.configure(item)
 		return cell
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let item = items[indexPath.row]
-
-		if let friend = item as? Friend {
-			select(friend: friend)
-		} else if let card = item as? Card {
-			select(card: card)
-		} else if let transfer = item as? Transfer {
-			select(transfer: transfer)
-		} else {
-			fatalError("unknown item: \(item)")
-		}
+		item.select()
 	}
 }
-
