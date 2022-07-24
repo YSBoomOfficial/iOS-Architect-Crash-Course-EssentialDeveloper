@@ -49,6 +49,7 @@
 		D3470A52288DFE6800829A6B /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A51288DFE6800829A6B /* Article.swift */; };
 		D3470A54288DFEA700829A6B /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A53288DFEA700829A6B /* Formatters.swift */; };
 		D3470A56288DFEC200829A6B /* UIViewController+presenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */; };
+		D3470A58288DFF8600829A6B /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A57288DFF8600829A6B /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		D3470A51288DFE6800829A6B /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D3470A53288DFEA700829A6B /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+presenterVC.swift"; sourceTree = "<group>"; };
+		D3470A57288DFF8600829A6B /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				08040FFB268B4C1D0062A93B /* MainTabBarController.swift */,
 				D3470A48288DFDEE00829A6B /* Utils */,
 				D3470A47288DFDE500829A6B /* Models */,
+				D3470A59288DFF8B00829A6B /* ViewModels */,
 				D3470A4A288DFE1500829A6B /* ViewController */,
 				D3470A49288DFE0700829A6B /* APIs */,
 				08927BC22686185C009195BD /* Supporting Files */,
@@ -306,6 +309,14 @@
 				08927BCC268618AC009195BD /* NotImplementedViewControllers.swift */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		D3470A59288DFF8B00829A6B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D3470A57288DFF8600829A6B /* ListViewModel.swift */,
+			);
+			name = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,6 +429,7 @@
 				08927BD5268618AC009195BD /* FriendsAPI.swift in Sources */,
 				08927BD1268618AC009195BD /* FriendsCache.swift in Sources */,
 				080833E0268F609C00A8099A /* DispatchQueue+mainAsyncIfNeeded.swift in Sources */,
+				D3470A58288DFF8600829A6B /* ListViewModel.swift in Sources */,
 				08927BCD268618AC009195BD /* SegmentNavigationViewController.swift in Sources */,
 				080833E2268F69C200A8099A /* ArticlesAPI.swift in Sources */,
 				D3470A54288DFEA700829A6B /* Formatters.swift in Sources */,
