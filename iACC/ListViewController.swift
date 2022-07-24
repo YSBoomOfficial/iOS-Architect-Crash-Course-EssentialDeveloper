@@ -130,36 +130,66 @@ class ListViewController: UITableViewController {
 							self?.tableView.reloadData()
 							
 						case let .failure(error):
-							let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-							alert.addAction(UIAlertAction(title: "Ok", style: .default))
-							self?.presenterVC.present(alert, animated: true)
+								self?.show(error: error)
 						}
 						self?.refreshControl?.endRefreshing()
 					}
 				}
 			} else {
-				let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-				alert.addAction(UIAlertAction(title: "Ok", style: .default))
-				self.presenterVC.present(alert, animated: true)
+				show(error: error)
 				self.refreshControl?.endRefreshing()
 			}
 		}
 	}
-	
+}
+
+// MARK: Navigate to different ViewControllers
+//  `show(vc, sender: self)` = `navigationController?.pushViewController(vc, animated: true)`
+//  `showDetailViewController(vc, sender: self)` = `present(vc, animated: true)`
+extension ListViewController {
 	@objc func addCard() {
-		navigationController?.pushViewController(AddCardViewController(), animated: true)
+		show(AddCardViewController(), sender: self)
 	}
 	
 	@objc func addFriend() {
-		navigationController?.pushViewController(AddFriendViewController(), animated: true)
+		show(AddFriendViewController(), sender: self)
 	}
 	
 	@objc func sendMoney() {
-		navigationController?.pushViewController(SendMoneyViewController(), animated: true)
+		show(SendMoneyViewController(), sender: self)
 	}
 	
 	@objc func requestMoney() {
-		navigationController?.pushViewController(RequestMoneyViewController(), animated: true)
+		show(RequestMoneyViewController(), sender: self)
+	}
+}
+
+// MARK: Configure UITableViewCell with ListViewModel
+extension UITableViewCell {
+	func configure(_ vm: ListViewModel) {
+		textLabel?.text = vm.title
+		detailTextLabel?.text = vm.subtitle
+	}
+}
+
+// MARK: select methods for didSelectRowAt indexPath
+extension ListViewController {
+	func select(friend: Friend) {
+		let vc = FriendDetailsViewController()
+		vc.friend = friend
+		show(vc, sender: self)
+	}
+
+	func select(card: Card) {
+		let vc = CardDetailsViewController()
+		vc.card = card
+		show(vc, sender: self)
+	}
+
+	func select(transfer: Transfer) {
+		let vc = TransferDetailsViewController()
+		vc.transfer = transfer
+		show(vc, sender: self)
 	}
 }
 
@@ -183,28 +213,16 @@ extension ListViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let item = items[indexPath.row]
+
 		if let friend = item as? Friend {
-			let vc = FriendDetailsViewController()
-			vc.friend = friend
-			navigationController?.pushViewController(vc, animated: true)
+			select(friend: friend)
 		} else if let card = item as? Card {
-			let vc = CardDetailsViewController()
-			vc.card = card
-			navigationController?.pushViewController(vc, animated: true)
+			select(card: card)
 		} else if let transfer = item as? Transfer {
-			let vc = TransferDetailsViewController()
-			vc.transfer = transfer
-			navigationController?.pushViewController(vc, animated: true)
+			select(transfer: transfer)
 		} else {
 			fatalError("unknown item: \(item)")
 		}
 	}
 }
 
-
-extension UITableViewCell {
-	func configure(_ vm: ListViewModel) {
-		textLabel?.text = vm.title
-		detailTextLabel?.text = vm.subtitle
-	}
-}

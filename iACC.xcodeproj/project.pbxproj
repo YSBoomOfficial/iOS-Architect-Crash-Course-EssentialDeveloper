@@ -50,6 +50,7 @@
 		D3470A54288DFEA700829A6B /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A53288DFEA700829A6B /* Formatters.swift */; };
 		D3470A56288DFEC200829A6B /* UIViewController+presenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */; };
 		D3470A58288DFF8600829A6B /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A57288DFF8600829A6B /* ListViewModel.swift */; };
+		D3470A5B288E053F00829A6B /* UIViewController+ShowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A5A288E053F00829A6B /* UIViewController+ShowError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		D3470A53288DFEA700829A6B /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+presenterVC.swift"; sourceTree = "<group>"; };
 		D3470A57288DFF8600829A6B /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		D3470A5A288E053F00829A6B /* UIViewController+ShowError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowError.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +287,7 @@
 				D3470A53288DFEA700829A6B /* Formatters.swift */,
 				D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */,
 				080833DF268F609C00A8099A /* DispatchQueue+mainAsyncIfNeeded.swift */,
+				D3470A5A288E053F00829A6B /* UIViewController+ShowError.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				08927B932686183A009195BD /* AppDelegate.swift in Sources */,
 				D3470A4E288DFE3C00829A6B /* Transfer.swift in Sources */,
 				D3470A4C288DFE2C00829A6B /* Friend.swift in Sources */,
+				D3470A5B288E053F00829A6B /* UIViewController+ShowError.swift in Sources */,
 				08927BCF268618AC009195BD /* ListViewController.swift in Sources */,
 				08040FFC268B4C1D0062A93B /* MainTabBarController.swift in Sources */,
 				08927BD0268618AC009195BD /* CardAPI.swift in Sources */,
