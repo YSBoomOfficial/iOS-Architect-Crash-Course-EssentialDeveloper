@@ -55,26 +55,27 @@ class MainTabBarController: UITabBarController {
 	
 	private func makeFriendsList() -> ListViewController {
 		let vc = ListViewController()
-		vc.fromFriendsScreen = true
-		vc.shouldRetry = true
-		vc.maxRetryCount = 2
 		vc.title = "Friends"
 		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: vc, action: #selector(vc.addFriend))
 
 		let isPremium = User.shared?.isPremium == true
- 		vc.service = FriendsAPIItemServiceAdapter(
+ 		let api = FriendsAPIItemServiceAdapter(
 			api: .shared,
 			cache: isPremium ? friendsCache : NullFriendsCache()
 		) { [weak vc] item in
 			vc?.select(friend: item)
+		}.retry(2)
+
+		let cache = FriendsCacheItemServiceAdapter(cache: friendsCache) { [weak vc] item in
+			vc?.select(friend: item)
 		}
+
+		vc.service = isPremium ? api.fallback(cache) : api
 		return vc
 	}
 
 	private func makeCardsList() -> ListViewController {
 		let vc = ListViewController()
-		vc.fromCardsScreen = true
-		vc.shouldRetry = false
 		vc.title = "Cards"
 		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: vc, action: #selector(vc.addCard))
 		vc.service = CardAPIItemServiceAdapter(api: .shared) { [weak vc] item in
@@ -85,30 +86,19 @@ class MainTabBarController: UITabBarController {
 	
 	private func makeSentTransfersList() -> ListViewController {
 		let vc = ListViewController()
-		vc.shouldRetry = true
-		vc.maxRetryCount = 1
-		vc.longDateStyle = true
-
 		vc.navigationItem.title = "Sent"
 		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: vc, action: #selector(vc.sendMoney))
-		vc.fromSentTransfersScreen = true
 
 		vc.service = SentTransfersAPIItemServiceAdapter(
 			api: .shared
 		) { [weak vc] item in
 			vc?.select(transfer: item)
-		}
+		}.retry(1)
 		return vc
 	}
 	
 	private func makeReceivedTransfersList() -> ListViewController {
 		let vc = ListViewController()
-		vc.fromReceivedTransfersScreen = true
-
-		vc.shouldRetry = true
-		vc.maxRetryCount = 1
-		vc.longDateStyle = false
-
 		vc.navigationItem.title = "Received"
 		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Request", style: .done, target: vc, action: #selector(vc.requestMoney))
 
@@ -116,7 +106,7 @@ class MainTabBarController: UITabBarController {
 			api: .shared
 		) { [weak vc] item in
 			vc?.select(transfer: item)
-		}
+		}.retry(1)
 		return vc
 	}
 	
