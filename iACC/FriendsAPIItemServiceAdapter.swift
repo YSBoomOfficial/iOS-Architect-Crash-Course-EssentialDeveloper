@@ -9,7 +9,7 @@ struct FriendsAPIItemServiceAdapter: ItemService {
 	let cache: FriendsCache
 	let select: (Friend) -> Void
 	
-	func loadFriends(completion: @escaping (Result<[ItemViewModel], Error>) -> Void) {
+	func loadItems(completion: @escaping (Result<[ItemViewModel], Error>) -> Void) {
 		api.loadFriends { result in
 			DispatchQueue.mainAsyncIfNeeded {
 				completion(

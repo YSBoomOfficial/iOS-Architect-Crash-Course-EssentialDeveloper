@@ -54,6 +54,7 @@
 		D3470A5E288E0E7A00829A6B /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A5D288E0E7A00829A6B /* ItemService.swift */; };
 		D3470A60288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */; };
 		D3470A62288E126B00829A6B /* NullFriendsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A61288E126B00829A6B /* NullFriendsCache.swift */; };
+		D3470A66288E167300829A6B /* CardAPIItemServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A65288E167300829A6B /* CardAPIItemServiceAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		D3470A5D288E0E7A00829A6B /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
 		D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAPIItemServiceAdapter.swift; sourceTree = "<group>"; };
 		D3470A61288E126B00829A6B /* NullFriendsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullFriendsCache.swift; sourceTree = "<group>"; };
+		D3470A65288E167300829A6B /* CardAPIItemServiceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAPIItemServiceAdapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,12 +304,9 @@
 			isa = PBXGroup;
 			children = (
 				D3470A5D288E0E7A00829A6B /* ItemService.swift */,
-				D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */,
-				08927BCB268618AC009195BD /* FriendsAPI.swift */,
-				08927BC7268618AC009195BD /* FriendsCache.swift */,
-				D3470A61288E126B00829A6B /* NullFriendsCache.swift */,
+				D3470A63288E164200829A6B /* Friends Service */,
+				D3470A64288E165E00829A6B /* Card Service */,
 				08927BC8268618AC009195BD /* TransfersAPI.swift */,
-				08927BC6268618AC009195BD /* CardAPI.swift */,
 				080833E1268F69C200A8099A /* ArticlesAPI.swift */,
 			);
 			name = Networking;
@@ -329,6 +328,26 @@
 				D3470A57288DFF8600829A6B /* ItemViewModel.swift */,
 			);
 			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		D3470A63288E164200829A6B /* Friends Service */ = {
+			isa = PBXGroup;
+			children = (
+				08927BC7268618AC009195BD /* FriendsCache.swift */,
+				D3470A61288E126B00829A6B /* NullFriendsCache.swift */,
+				08927BCB268618AC009195BD /* FriendsAPI.swift */,
+				D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */,
+			);
+			name = "Friends Service";
+			sourceTree = "<group>";
+		};
+		D3470A64288E165E00829A6B /* Card Service */ = {
+			isa = PBXGroup;
+			children = (
+				08927BC6268618AC009195BD /* CardAPI.swift */,
+				D3470A65288E167300829A6B /* CardAPIItemServiceAdapter.swift */,
+			);
+			name = "Card Service";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,6 +472,7 @@
 				D3470A62288E126B00829A6B /* NullFriendsCache.swift in Sources */,
 				D3470A56288DFEC200829A6B /* UIViewController+presenterVC.swift in Sources */,
 				D3470A52288DFE6800829A6B /* Article.swift in Sources */,
+				D3470A66288E167300829A6B /* CardAPIItemServiceAdapter.swift in Sources */,
 				08927BD4268618AC009195BD /* User.swift in Sources */,
 				D3470A50288DFE5B00829A6B /* Card.swift in Sources */,
 			);

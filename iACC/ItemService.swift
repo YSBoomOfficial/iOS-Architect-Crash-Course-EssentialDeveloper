@@ -5,5 +5,5 @@
 import Foundation
 
 protocol ItemService {
-	func loadFriends(completion: @escaping (Result<[ItemViewModel], Error>) -> Void)
+	func loadItems(completion: @escaping (Result<[ItemViewModel], Error>) -> Void)
 }

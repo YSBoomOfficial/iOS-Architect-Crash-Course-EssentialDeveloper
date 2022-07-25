@@ -70,6 +70,18 @@ class MainTabBarController: UITabBarController {
 		}
 		return vc
 	}
+
+	private func makeCardsList() -> ListViewController {
+		let vc = ListViewController()
+		vc.fromCardsScreen = true
+		vc.shouldRetry = false
+		vc.title = "Cards"
+		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: vc, action: #selector(vc.addCard))
+		vc.service = CardAPIItemServiceAdapter(api: .shared) { [weak vc] item in
+			vc?.select(card: item)
+		}
+		return vc
+	}
 	
 	private func makeSentTransfersList() -> ListViewController {
 		let vc = ListViewController()
@@ -80,12 +92,6 @@ class MainTabBarController: UITabBarController {
 	private func makeReceivedTransfersList() -> ListViewController {
 		let vc = ListViewController()
 		vc.fromReceivedTransfersScreen = true
-		return vc
-	}
-	
-	private func makeCardsList() -> ListViewController {
-		let vc = ListViewController()
-		vc.fromCardsScreen = true
 		return vc
 	}
 	
