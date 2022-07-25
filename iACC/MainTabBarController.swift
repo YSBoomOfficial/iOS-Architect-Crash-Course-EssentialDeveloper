@@ -66,7 +66,7 @@ class MainTabBarController: UITabBarController {
 			api: .shared,
 			cache: isPremium ? friendsCache : NullFriendsCache()
 		) { [weak vc] item in
-			vc? .select(friend: item)
+			vc?.select(friend: item)
 		}
 		return vc
 	}
@@ -85,13 +85,38 @@ class MainTabBarController: UITabBarController {
 	
 	private func makeSentTransfersList() -> ListViewController {
 		let vc = ListViewController()
+		vc.shouldRetry = true
+		vc.maxRetryCount = 1
+		vc.longDateStyle = true
+
+		vc.navigationItem.title = "Sent"
+		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: vc, action: #selector(vc.sendMoney))
 		vc.fromSentTransfersScreen = true
+
+		vc.service = SentTransfersAPIItemServiceAdapter(
+			api: .shared
+		) { [weak vc] item in
+			vc?.select(transfer: item)
+		}
 		return vc
 	}
 	
 	private func makeReceivedTransfersList() -> ListViewController {
 		let vc = ListViewController()
 		vc.fromReceivedTransfersScreen = true
+
+		vc.shouldRetry = true
+		vc.maxRetryCount = 1
+		vc.longDateStyle = false
+
+		vc.navigationItem.title = "Received"
+		vc.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Request", style: .done, target: vc, action: #selector(vc.requestMoney))
+
+		vc.service = ReceivedTransfersAPIItemServiceAdapter(
+			api: .shared
+		) { [weak vc] item in
+			vc?.select(transfer: item)
+		}
 		return vc
 	}
 	

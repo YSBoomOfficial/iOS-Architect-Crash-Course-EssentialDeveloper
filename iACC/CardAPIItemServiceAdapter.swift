@@ -11,7 +11,7 @@ struct CardAPIItemServiceAdapter: ItemService {
 	func loadItems(completion: @escaping (Result<[ItemViewModel], Error>) -> Void) {
 		api.loadCards { result in
 			DispatchQueue.mainAsyncIfNeeded {
-				completion (
+				completion(
 					result.map { items in
 						items.map { item in
 							ItemViewModel(card: item) { select(item) }
