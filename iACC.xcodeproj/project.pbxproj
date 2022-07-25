@@ -51,6 +51,9 @@
 		D3470A56288DFEC200829A6B /* UIViewController+presenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */; };
 		D3470A58288DFF8600829A6B /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A57288DFF8600829A6B /* ItemViewModel.swift */; };
 		D3470A5B288E053F00829A6B /* UIViewController+ShowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A5A288E053F00829A6B /* UIViewController+ShowError.swift */; };
+		D3470A5E288E0E7A00829A6B /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A5D288E0E7A00829A6B /* ItemService.swift */; };
+		D3470A60288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */; };
+		D3470A62288E126B00829A6B /* NullFriendsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3470A61288E126B00829A6B /* NullFriendsCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +115,9 @@
 		D3470A55288DFEC200829A6B /* UIViewController+presenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+presenterVC.swift"; sourceTree = "<group>"; };
 		D3470A57288DFF8600829A6B /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		D3470A5A288E053F00829A6B /* UIViewController+ShowError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowError.swift"; sourceTree = "<group>"; };
+		D3470A5D288E0E7A00829A6B /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
+		D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAPIItemServiceAdapter.swift; sourceTree = "<group>"; };
+		D3470A61288E126B00829A6B /* NullFriendsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullFriendsCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +247,7 @@
 				D3470A47288DFDE500829A6B /* Models */,
 				D3470A59288DFF8B00829A6B /* ViewModels */,
 				D3470A4A288DFE1500829A6B /* ViewController */,
-				D3470A49288DFE0700829A6B /* APIs */,
+				D3470A49288DFE0700829A6B /* Networking */,
 				08927BC22686185C009195BD /* Supporting Files */,
 			);
 			path = iACC;
@@ -292,16 +298,19 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		D3470A49288DFE0700829A6B /* APIs */ = {
+		D3470A49288DFE0700829A6B /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				08927BC7268618AC009195BD /* FriendsCache.swift */,
+				D3470A5D288E0E7A00829A6B /* ItemService.swift */,
+				D3470A5F288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift */,
 				08927BCB268618AC009195BD /* FriendsAPI.swift */,
+				08927BC7268618AC009195BD /* FriendsCache.swift */,
+				D3470A61288E126B00829A6B /* NullFriendsCache.swift */,
 				08927BC8268618AC009195BD /* TransfersAPI.swift */,
 				08927BC6268618AC009195BD /* CardAPI.swift */,
 				080833E1268F69C200A8099A /* ArticlesAPI.swift */,
 			);
-			name = APIs;
+			name = Networking;
 			sourceTree = "<group>";
 		};
 		D3470A4A288DFE1500829A6B /* ViewController */ = {
@@ -424,10 +433,12 @@
 			files = (
 				08927B932686183A009195BD /* AppDelegate.swift in Sources */,
 				D3470A4E288DFE3C00829A6B /* Transfer.swift in Sources */,
+				D3470A60288E0F0C00829A6B /* FriendsAPIItemServiceAdapter.swift in Sources */,
 				D3470A4C288DFE2C00829A6B /* Friend.swift in Sources */,
 				D3470A5B288E053F00829A6B /* UIViewController+ShowError.swift in Sources */,
 				08927BCF268618AC009195BD /* ListViewController.swift in Sources */,
 				08040FFC268B4C1D0062A93B /* MainTabBarController.swift in Sources */,
+				D3470A5E288E0E7A00829A6B /* ItemService.swift in Sources */,
 				08927BD0268618AC009195BD /* CardAPI.swift in Sources */,
 				08927BD6268618AC009195BD /* NotImplementedViewControllers.swift in Sources */,
 				08927BD5268618AC009195BD /* FriendsAPI.swift in Sources */,
@@ -439,6 +450,7 @@
 				D3470A54288DFEA700829A6B /* Formatters.swift in Sources */,
 				08927B952686183A009195BD /* SceneDelegate.swift in Sources */,
 				08927BD2268618AC009195BD /* TransfersAPI.swift in Sources */,
+				D3470A62288E126B00829A6B /* NullFriendsCache.swift in Sources */,
 				D3470A56288DFEC200829A6B /* UIViewController+presenterVC.swift in Sources */,
 				D3470A52288DFE6800829A6B /* Article.swift in Sources */,
 				08927BD4268618AC009195BD /* User.swift in Sources */,
